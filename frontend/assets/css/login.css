@@ -1,0 +1,131 @@
+.page-edrive-login .edrive-container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+.page-edrive-login .edrive-header .edrive-logo img {
+    min-width: 200px;
+    min-height: 50px;
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 50px;
+}
+
+.page-edrive-login .gssync-login {
+    max-width: 500px;
+    margin: auto;
+    margin-top: auto;
+    color: #000;
+    border: 1px aliceblue;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 25vh;
+    text-align: center;
+    margin-bottom: 25vh;
+    position: relative;
+}
+
+.page-edrive-login .gssync-login form {
+    text-align: left;
+    padding: 10px;
+}
+
+.page-edrive-login .login-username,
+.page-edrive-login .login-password,
+.page-edrive-login .login-remember {
+    position: relative;
+    margin: 20px;
+    height: 50px;
+}
+
+.page-edrive-login .login-username input,
+.page-edrive-login .login-password input {
+    width: 100%;
+    height: 50px;
+    border: unset;
+    border-bottom: 3px solid #000000;
+    font-family: Yusei Magic;
+    font-size: 18px;
+    padding-left: 10px;
+    letter-spacing: 1px;
+}
+
+.page-edrive-login .login-username input:focus,
+.page-edrive-login .login-password input:focus {
+    /* border: 0 !important; */
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.page-edrive-login .login-username label,
+.page-edrive-login .login-password label,
+.page-edrive-login .login-remember label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    pointer-events: none;
+    font-size: 18px;
+    font-family: Yusei Magic;
+    letter-spacing: 1px;
+}
+
+.page-edrive-login .login-submit input {
+    font-size: 18px;
+    font-family: Yusei Magic;
+    padding: 10px 30px;
+    background-color: #EF6526;
+    color: #ffffff;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    border: unset;
+    cursor: pointer;
+    width: 100%;
+}
+
+.page-edrive-login .login-submit input:hover {
+    box-shadow: 2px 2px 5px 0px #000000ad;
+}
+
+.page-edrive-login button:active,
+.page-edrive-login input[type="submit"]:active {
+    box-shadow: none !important;
+}
+
+.page-edrive-login .login-remember label {
+    left: 0px;
+}
+
+.page-edrive-login .gssync-login input[type="checkbox"] {
+    transform: scale(1.3);
+    margin-right: 10px;
+    position: relative;
+    bottom: 1px;
+}
+
+.page-edrive-login .edrive-forgot-password {
+    text-align: center;
+    bottom: 108px;
+    font-size: 18px;
+    font-family: Yusei Magic;
+    text-decoration: underline;
+}
+
+@media screen and (max-width:768px) {
+    .page-edrive-login .gssync-login{
+        margin: 20% 10px 10% 10px;
+    }
+
+    .page-edrive-login #loginform input,
+    .page-edrive-login #loginform label {
+        font-size: 16px;
+    }
+
+    .page-edrive-login .login-username,
+    .page-edrive-login .login-password,
+    .page-edrive-login .login-remember {
+        margin: 10px 0px;
+    }
+}

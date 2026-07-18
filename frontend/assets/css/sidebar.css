@@ -1,0 +1,43 @@
+.edrive-sidebar{
+    background-color: #ffffff;
+    box-shadow: 2px 4px 4px 0 #000000;
+}
+.edrive-sidebar{
+    color: #000000;
+    position: fixed;
+    left: 0;
+    margin: 50px 0;
+    padding: 20px;
+    max-height: 80vh;
+    height: 100%;
+    max-width: 200px;
+    width: 100%;
+    border-radius: 0 8px 8px 0px;
+}
+.edrive-sidebar ul{
+    margin-top: 50px;
+    list-style-type: none;
+    font-family: Yusei Magic;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.edrive-sidebar ul li{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+.edrive-sidebar ul svg{
+    height: 30px;
+    width: 30px;
+}
+.edrive-sidebar ul li svg path{
+    fill: #000000;
+}
+.edrive-sidebar ul li.active{color:#EF6526;}
+.edrive-sidebar ul li.active svg path{
+    fill: #EF6526;
+}

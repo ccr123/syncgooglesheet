@@ -31,8 +31,13 @@ function gssync_activate()
 {
     require_once GSSYNC_PLUGIN_DIR . 'admin/includes/post-types.php';
     require_once GSSYNC_PLUGIN_DIR . 'admin/includes/db/database.php';
+
     gssync_register_vehicle_post_type();
     gssync_create_tables();
+
+    gssync_create_dashboard_page();
+    gssync_create_login_page();
+
     flush_rewrite_rules();
 }
 register_activation_hook(__FILE__, 'gssync_activate');
@@ -57,3 +62,12 @@ require_once GSSYNC_PLUGIN_DIR . 'admin/includes/page-settings.php';
 require_once GSSYNC_PLUGIN_DIR . 'admin/includes/page-get-sheets.php';
 require_once GSSYNC_PLUGIN_DIR . 'admin/includes/sync-locations.php';
 require_once GSSYNC_PLUGIN_DIR . 'admin/includes/sync-expenses.php';
+
+
+/*
+|--------------------------------------------------------------------------
+| Front end
+|--------------------------------------------------------------------------
+*/
+
+require_once GSSYNC_PLUGIN_DIR . 'frontend/frontend.php';

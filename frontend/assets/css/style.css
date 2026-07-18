@@ -1,0 +1,29 @@
+.edrive-header-left h4{
+    padding: 10px 20px;
+    background-color: #ffffff1a;
+}
+.edrive-header,
+.edrive-main-content{
+    width: calc(100% - 250px);
+    margin-left: auto;
+}
+.gssync-card-wrapper{
+    background-color: #ffffff;
+}
+.edrive-header{
+    width: calc(100% - 230px);
+}
+.update-entry-filters div.date input{
+    font-size: 28px;
+    font-family: Inter;
+    text-align: center;
+    border: unset;
+}
+.gssync-year-field::-webkit-outer-spin-button,
+.gssync-year-field::-webkit-inner-spin-button{
+    -webkit-appearance:none;
+    margin:0;
+}
+.year-right svg{
+    transform: rotate(180deg);
+}

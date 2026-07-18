@@ -103,3 +103,30 @@
 .nav-tab-wrapper{
     margin-bottom:0;
 }
+.gssync-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    padding:12px;
+    background:#fff;
+    border:1px solid #dcdcde;
+}
+
+.gssync-toolbar-left{
+    display:flex;
+    gap:10px;
+    width:200px;
+}
+
+.gssync-toolbar-left select{
+    flex:1;
+}
+
+.gssync-toolbar-right{
+    width:300px;
+}
+
+.gssync-toolbar-right input{
+    width:100%;
+}

@@ -13,7 +13,7 @@ function gssync_register_vehicle_meta_boxes()
 {
     add_meta_box(
         'gssync-expense-generator',
-        'Expense Generator',
+        'Sheet Expense Generator',
         'gssync_expense_generator_callback',
         'gssync_vehicle',
         'side',

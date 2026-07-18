@@ -5,6 +5,8 @@ if (!defined('ABSPATH')) {
 }
 
 require_once GSSYNC_PLUGIN_DIR . 'admin/includes/meta-box/single-vehicle-meta.php';
+require_once GSSYNC_PLUGIN_DIR . 'admin/includes/meta-box/vehicle-data-meta.php';
+
 function gssync_register_vehicle_post_type()
 {
     $labels = array(
@@ -53,7 +55,7 @@ function gssync_add_vehicle_meta_boxes()
 {
     add_meta_box(
         'gssync_vehicle_sheet',
-        __('Google Sheet', 'google-sheet-sync'),
+        __('Google Sheet Sync', 'google-sheet-sync'),
         'gssync_vehicle_sheet_callback',
         'gssync_vehicle',
         'normal',
