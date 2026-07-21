@@ -35,8 +35,8 @@ function gssync_activate()
     gssync_register_vehicle_post_type();
     gssync_create_tables();
 
-    gssync_create_dashboard_page();
-    gssync_create_login_page();
+    gssync_create_pages();
+    // gssync_create_login_page();
 
     flush_rewrite_rules();
 }

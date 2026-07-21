@@ -47,6 +47,17 @@ function gssync_create_pages()
     }
 
 
+    if (!get_page_by_path('edrive-vehicles')) {
+
+        wp_insert_post([
+            'post_title'  => 'Edrive Vehicles',
+            'post_name'   => 'edrive-vehicles',
+            'post_status' => 'publish',
+            'post_type'   => 'page',
+        ]);
+    }
+
+
 }
 
 function gssync_frontend_assets()
@@ -95,6 +106,28 @@ function gssync_frontend_assets()
         GSSYNC_PLUGIN_URL . 'frontend/assets/js/custom.js',
         ['jquery'],
         GSSYNC_VERSION,
+        true
+    );
+
+    wp_enqueue_style(
+        'owl-carousel',
+        'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css',
+        [],
+        '2.3.4'
+    );
+
+    wp_enqueue_style(
+        'owl-theme',
+        'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css',
+        [],
+        '2.3.4'
+    );
+
+    wp_enqueue_script(
+        'owl-carousel',
+        'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js',
+        ['jquery'],
+        '2.3.4',
         true
     );
 }

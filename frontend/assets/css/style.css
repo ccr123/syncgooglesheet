@@ -2,15 +2,16 @@
     padding: 10px 20px;
     background-color: #ffffff1a;
 }
-.edrive-header,
+body:not(.page-edrive-login) .edrive-header,
 .edrive-main-content{
     width: calc(100% - 250px);
     margin-left: auto;
 }
 .gssync-card-wrapper{
     background-color: #ffffff;
+    
 }
-.edrive-header{
+body:not(.page-edrive-login) .edrive-header{
     width: calc(100% - 230px);
 }
 .update-entry-filters div.date input{
@@ -26,4 +27,140 @@
 }
 .year-right svg{
     transform: rotate(180deg);
+}
+.gssync-search-box{
+    display: flex;
+    margin-left:auto;
+}
+.gssync-search-box input{
+    margin: 20px 0 20px auto ;
+    height: 50px;
+    max-width: 250px;
+    width: 100%;
+    font-size: 18px;
+    padding-left: 5px;
+    font-family: Yusei Magic;
+}
+.gssync-date-list{
+    position: relative;
+}
+
+.gssync-date-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.gssync-date-item .day-name{
+    font-size: 14px;
+}
+
+.gssync-date-item .day-number{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.gssync-date-item.active{
+    background: var(--color-accent);
+    color: #fff;
+}
+
+.gssync-date-list .owl-nav{
+    margin-top: 15px;
+}
+.gssync-search-box{
+    position: relative;
+    width: fit-content;
+}
+
+.gssync-search-box::before{
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44' fill='none'%3E%3Cpath d='M32.1238 32.0559L41.5 41.5M37.1667 19.8333C37.1667 29.4063 29.4063 37.1667 19.8333 37.1667C10.2604 37.1667 2.5 29.4063 2.5 19.8333C2.5 10.2604 10.2604 2.5 19.8333 2.5C29.4063 2.5 37.1667 10.2604 37.1667 19.8333Z' stroke='black' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none;
+}
+
+.gssync-search-box input{
+    padding-left: 50px;
+}
+.gssync-date-list .owl-prev,
+.gssync-date-list .owl-next{
+    width: 40px;
+    height: 40px;
+}
+
+.gssync-card form .gssync-form-row{
+    margin: 10px;
+}
+.gssync-card form select,.gssync-card form input{
+    font-size: 16px;
+    font-family: Yusei Magic;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 200px;
+}
+.gssync-form-row label,.gssync-expense-wrapper label{
+    font-size: 16px;
+    font-family: Yusei Magic;
+    width: 100%;
+    max-width: 120px;
+}
+.action-buttons button{
+    font-family: Yusei Magic;
+    font-size: 16px;
+    color: #EF6526;
+    border: 1px solid #EF6526;
+    filter: drop-shadow(2px 4px 4px #EF6526);
+    border-radius: 8px;
+    padding: 10px 30px;
+}
+.gssync-form-row button, .gssync-add-expense{
+    border: unset;
+    color: #EF6526;
+    font-size: 14px;
+    background-color: transparent;
+    font-weight: 700;
+    margin-left: auto;
+}
+.gssync-add-expense{
+    display: block;
+    margin-top: 10px;
+}
+@media screen and (max-width:768px) {
+    .edrive-side-nav{
+        display: none;
+    }
+    .edrive-main-content{
+        margin: 0px;
+        width: 100%;
+        max-width: 100%;
+    }
+    .edrive-main-content .update-entry{
+        width: 95%;
+        margin: 10px;
+        max-width: 100%;
+    }
+    .gssync-year-field{
+        max-width: 200px;
+        width: 100%;
+    }
+    body .edrive-header{
+        width: 100%;
+    }
+    body .edrive-container{
+        margin-right: 0;
+    }
 }

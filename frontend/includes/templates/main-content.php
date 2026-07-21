@@ -14,7 +14,6 @@ $page_file = __DIR__ .
     '.php';
 ?>
 
-<div id="gssync-calendar"></div>
 <div class="edrive-main-content mt-20 mr-20">
 
     <?php

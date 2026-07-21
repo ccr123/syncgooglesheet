@@ -71,3 +71,46 @@ jQuery(function ($) {
     });
 
 });
+jQuery(function ($) {
+
+    const activeIndex = $('.gssync-date-item.active')
+        .closest('.owl-item')
+        .index();
+
+    const $owl = $('.gssync-date-list');
+
+    $owl.owlCarousel({
+        items: 6,
+        margin: 10,
+        nav: false,
+        dots: false,
+        slideBy: 1,
+        responsive: {
+        0: {
+            items: 5
+        },
+        768: {
+            items: 6
+        },
+        1200: {
+            items: 7
+        }
+    }
+    });
+
+    $owl.trigger(
+        'to.owl.carousel',
+        [activeIndex, 0]
+    );
+
+    jQuery(document).on('click', '.gssync-date-item', function () {
+
+    $('.gssync-date-item')
+        .removeClass('active');
+
+    $(this)
+        .addClass('active');
+
+});
+
+});
