@@ -34,6 +34,38 @@ $expenses = $wpdb->get_results(
     ORDER BY expense_name ASC"
 );
 
+$primary_expenses = [];
+$driver_expenses  = [];
+$owner_expenses   = [];
+
+foreach ($expenses as $expense) {
+
+    switch ($expense->expense_tags) {
+
+        case 'Driver':
+            $driver_expenses[] = $expense;
+            break;
+
+        case 'Owner':
+            $owner_expenses[] = $expense;
+            break;
+
+        default:
+            $primary_expenses[] = $expense;
+            break;
+    }
+}
+// Drivers
+$drivers = get_post_meta(
+    $vehicle_id,
+    '_gssync_drivers',
+    true
+);
+
+if (!is_array($drivers)) {
+    $drivers = [];
+}
+
 ?>
 
 <div class="gssync-card-wrapper update-entry bg-white br-12 pb-10 pl-20 pr-20 mb-40">
@@ -46,24 +78,91 @@ $expenses = $wpdb->get_results(
 
         <div class="update-entry-filters d-flex gap-2 mb-20 justify-center mt-40 flex-column">
 
-        <div class="date d-flex justify-center align-center">
-            <div class="year-left d-flex align-center"><svg width="25" height="25" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="23" stroke="black" stroke-width="4"/>
-                <path d="M15.5778 26.4063C14.8011 25.6208 14.8082 24.3545 15.5936 23.5779L28.3928 10.9216C29.1782 10.1449 30.4445 10.152 31.2212 10.9374C31.9978 11.7229 31.9907 12.9892 31.2053 13.7658L19.8283 25.0159L31.0783 36.3929C31.855 37.1783 31.8479 38.4446 31.0625 39.2213C30.277 39.9979 29.0107 39.9908 28.2341 39.2054L15.5778 26.4063ZM17 25L16.9888 27L16.9887 27L16.9999 25L17.0111 23L17.0112 23L17 25Z" fill="black"/>
-                </svg>
-            </div>
-            <input
-                type="text"
-                class="gssync-year-field"
-                value="<?php echo date('F Y'); ?>"
-                min="2000"
-                max="2100"
+        <div class="gssync-calendar-switch">
+            <button
+                type="button"
+                class="gssync-calendar-btn active"
+                data-calendar="ad"
             >
-            <div class="year-right d-flex align-center"><svg width="25" height="25" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                AD
+            </button>
+
+            <button
+                type="button"
+                class="gssync-calendar-btn"
+                data-calendar="bs"
+            >
+                BS
+            </button>
+        </div>
+        <div class="date d-flex justify-center align-center">
+            <!-- <div class="year-left d-flex align-center"><svg width="25" height="25" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="25" cy="25" r="23" stroke="black" stroke-width="4"/>
                 <path d="M15.5778 26.4063C14.8011 25.6208 14.8082 24.3545 15.5936 23.5779L28.3928 10.9216C29.1782 10.1449 30.4445 10.152 31.2212 10.9374C31.9978 11.7229 31.9907 12.9892 31.2053 13.7658L19.8283 25.0159L31.0783 36.3929C31.855 37.1783 31.8479 38.4446 31.0625 39.2213C30.277 39.9979 29.0107 39.9908 28.2341 39.2054L15.5778 26.4063ZM17 25L16.9888 27L16.9887 27L16.9999 25L17.0111 23L17.0112 23L17 25Z" fill="black"/>
                 </svg>
-            </div>
+            </div> -->
+            <?php
+
+                $today = current_time('Y-m-d');
+
+                $current_date = GSSYNC_Nepali_Date::get_by_ad_date($today);
+
+                if ($current_date) {
+
+                    $input_value = $current_date['ad_month_name'] . ' ' . $current_date['ad_year'];
+
+                } else {
+
+                    $current_date = [
+                        'ad_date'       => date('Y-m-d'),
+                        'ad_year'       => date('Y'),
+                        'ad_month'      => date('n'),
+                        'ad_day'        => date('j'),
+                        'ad_month_name' => date('F'),
+                        'ad_day_name'   => date('D'),
+
+                        'bs_date'       => '',
+                        'bs_year'       => '',
+                        'bs_month'      => '',
+                        'bs_day'        => '',
+                        'bs_month_name' => '',
+                        'bs_day_name'   => '',
+                    ];
+
+                    $input_value = date('F Y');
+                }
+
+                ?>
+
+                <input
+                    type="text"
+                    class="gssync-year-field"
+                    disabled="disabled"
+                    value="<?php echo esc_attr($input_value); ?>"
+
+                    data-date-ad="<?php echo esc_attr($current_date['ad_date']); ?>"
+                    data-date-bs="<?php echo esc_attr($current_date['bs_date']); ?>"
+
+                    data-year-ad="<?php echo esc_attr($current_date['ad_year']); ?>"
+                    data-year-bs="<?php echo esc_attr($current_date['bs_year']); ?>"
+
+                    data-month-ad="<?php echo esc_attr($current_date['ad_month']); ?>"
+                    data-month-bs="<?php echo esc_attr($current_date['bs_month']); ?>"
+
+                    data-month-name-ad="<?php echo esc_attr($current_date['ad_month_name']); ?>"
+                    data-month-name-bs="<?php echo esc_attr($current_date['bs_month_name']); ?>"
+
+                    data-day-ad="<?php echo esc_attr($current_date['ad_day']); ?>"
+                    data-day-bs="<?php echo esc_attr($current_date['bs_day']); ?>"
+
+                    data-day-name-ad="<?php echo esc_attr($current_date['ad_day_name']); ?>"
+                    data-day-name-bs="<?php echo esc_attr($current_date['bs_day_name']); ?>"
+                >
+            <!-- <div class="year-right d-flex align-center"><svg width="25" height="25" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="25" cy="25" r="23" stroke="black" stroke-width="4"/>
+                <path d="M15.5778 26.4063C14.8011 25.6208 14.8082 24.3545 15.5936 23.5779L28.3928 10.9216C29.1782 10.1449 30.4445 10.152 31.2212 10.9374C31.9978 11.7229 31.9907 12.9892 31.2053 13.7658L19.8283 25.0159L31.0783 36.3929C31.855 37.1783 31.8479 38.4446 31.0625 39.2213C30.277 39.9979 29.0107 39.9908 28.2341 39.2054L15.5778 26.4063ZM17 25L16.9888 27L16.9887 27L16.9999 25L17.0111 23L17.0112 23L17 25Z" fill="black"/>
+                </svg>
+            </div> -->
             
         </div>
 
@@ -71,37 +170,73 @@ $expenses = $wpdb->get_results(
 
             <?php
 
-                $today = current_time('timestamp');
+                $today = current_time('Y-m-d');
 
-                for ($i = -4; $i <= 10; $i++) :
+                $dates = GSSYNC_Nepali_Date::get_range(
+                    date('Y-m-d', strtotime('-4 days', strtotime($today))),
+                    date('Y-m-d', strtotime('+10 days', strtotime($today)))
+                );
 
-                    $date = strtotime("$i days", $today);
 
-                    $classes = [];
+                if (!empty($dates)) :
 
-                    if ($i === 0) {
-                        $classes[] = 'active';
-                        $classes[] = 'today-active';
-                    }
+                foreach ($dates as $date) :
 
                 ?>
 
-                    <div
-                        class="gssync-date-item <?php echo esc_attr(implode(' ', $classes)); ?>"
-                        data-date="<?php echo esc_attr(date('Y-m-d', $date)); ?>"
-                    >
+                <div 
+                 class="gssync-date-item <?php echo $date['ad_date'] === $today ? 'active today-active' : ''; ?>"
 
-                        <span class="day-name">
-                            <?php echo date('D', $date); ?>
-                        </span>
+                data-date-ad="<?php echo esc_attr($date['ad_date']); ?>"
+                data-date-bs="<?php echo esc_attr($date['bs_date']); ?>"
 
-                        <span class="day-number">
-                            <?php echo date('d', $date); ?>
-                        </span>
+                data-year-ad="<?php echo esc_attr($date['ad_year']); ?>"
+                data-year-bs="<?php echo esc_attr($date['bs_year']); ?>"
+                >
 
-                    </div>
 
-                <?php endfor; ?>
+                <span class="ad-value">
+
+                    <span class="day-name">
+                        <?php echo esc_html($date['ad_day_name']); ?>
+                    </span>
+
+                    <span class="day-number">
+                        <?php echo esc_html($date['ad_day']); ?>
+                    </span>
+
+                </span>
+
+
+                <span class="bs-value">
+
+                    <span class="day-name">
+                        <?php echo esc_html($date['bs_day_name']); ?>
+                    </span>
+
+                    <span class="day-number">
+                        <?php echo esc_html($date['bs_day']); ?>
+                    </span>
+
+                </span>
+
+
+                </div>
+
+
+                <?php
+
+                endforeach;
+
+                else:
+
+                ?>
+
+                <div class="gssync-no-date">
+                    Date data not available
+                </div>
+
+                <?php endif; ?>
 
         </div>
 
@@ -129,18 +264,43 @@ $expenses = $wpdb->get_results(
 
         <form method="post" class="gssync-vehicle-entry-form">
 
+            <input type="hidden" name="entry_date_ad" value="">
+            <input type="hidden" name="entry_date_bs" value="">
+
             <div class="gssync-form-row driver-row">
 
-                <div class="d-flex align-center gap-1 ">
+                <div class="d-flex align-center gap-1">
+
                     <label>
                         Driver:
                     </label>
+                            <?php if (count($drivers) === 1) : ?>
+
+                                <input
+                                    type="hidden"
+                                    name="driver_id"
+                                    value="<?php echo esc_attr($drivers[0]); ?>"
+                                >
+
+                                <strong>
+                                    <?php echo esc_html($drivers[0]); ?>
+                                </strong>
+
+                            <?php else : ?>
                     <select name="driver_id">
 
                         <option value="">
                             Select Driver
                         </option>
 
+                        <?php foreach ($drivers as $driver) : ?>
+
+                            <option value="<?php echo esc_attr($driver); ?>">
+                                <?php echo esc_html($driver); ?>
+                            </option>
+
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                     </select>
 
                     <button
@@ -235,52 +395,129 @@ $expenses = $wpdb->get_results(
                     step="0.01"
                 >
 
+                <select name="reference">
+                    <option value="online">
+                            Reference
+                        </option>
+                        <option value="online">
+                            Online
+                        </option>
+                        <option value="offline">
+                            Offline
+                        </option>
+                        <option value="office">
+                            Office
+                        </option>
+                </select>
             </div>
 
-            <div class="gssync-expense-wrapper ml-10">
+            <div class="gssync-form-row d-flex align-center gap-1">
 
-                <div class="gssync-expense-row d-flex align-center gap-1">
+                
 
-                    <label>
-                        Expenses:
-                    </label>
+            </div>
 
-                    <select name="expense[]">
+            <div
+                class="d-flex justify-right mt-30 mr-10 mb-20 action-buttons"
+            >
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    Update
+                </button>
 
-                        <option value="">
-                            Select Expense
-                        </option>
+            </div>
 
-                        <?php foreach ($expenses as $expense) : ?>
+        </form>
 
+    </section>
+
+</div>
+
+<div class="gssync-card-wrapper update-entry bg-white br-12 pb-10 pl-20 pr-20 mb-40">
+    <section class="gssync-card pt-20 pb-20">
+        <div class="gssync-expense-wrapper ml-10">
+            <div class="add-expense-header d-flex justify-between mb-20">
+                <h4>Expenses</h4>
+                <button class="add-expense-class">Add Expense</button>
+            </div>
+
+            <form method="post" class="gssync-vehicle-expense-entry-form d-flex flex-column gap-1">
+                <!-- Primary -->
+                <div class="gssync-expense-row gssync-primary-expense-row d-flex align-center gap-1">
+
+                    <label>Expense:</label>
+
+                    <select name="primary_expense[]">
+                        <option value="">Select Expense</option>
+
+                        <?php foreach ($primary_expenses as $expense) : ?>
                             <option value="<?php echo esc_attr($expense->id); ?>">
                                 <?php echo esc_html($expense->expense_name); ?>
                             </option>
-
                         <?php endforeach; ?>
 
                     </select>
 
                     <input
                         type="number"
-                        name="expense_price[]"
+                        name="primary_expense_price[]"
                         placeholder="Amount"
                     >
-
                 </div>
 
-                <button
-                    type="button"
-                    class="gssync-add-expense"
-                >
-                    Add Expense
-                </button>
-            </div>
 
 
-            <div
-                class="d-flex justify-between mt-30 mb-20 action-buttons"
-            >
+                <!-- Driver -->
+                <div class="gssync-expense-row gssync-driver-expense-row d-flex align-center gap-1">
+
+                    <label>Driver:</label>
+
+                    <select name="driver_expense[]">
+                        <option value="">Select Expense</option>
+
+                        <?php foreach ($driver_expenses as $expense) : ?>
+                            <option value="<?php echo esc_attr($expense->id); ?>">
+                                <?php echo esc_html($expense->expense_name); ?>
+                            </option>
+                        <?php endforeach; ?>
+
+                    </select>
+
+                    <input
+                        type="number"
+                        name="driver_expense_price[]"
+                        placeholder="Amount"
+                    >
+                </div>
+
+
+
+                <!-- Owner -->
+                <div class="gssync-expense-row gssync-owner-expense-row d-flex align-center gap-1">
+
+                    <label>Owner:</label>
+
+                    <select name="owner_expense[]">
+                        <option value="">Select Expense</option>
+
+                        <?php foreach ($owner_expenses as $expense) : ?>
+                            <option value="<?php echo esc_attr($expense->id); ?>">
+                                <?php echo esc_html($expense->expense_name); ?>
+                            </option>
+                        <?php endforeach; ?>
+
+                    </select>
+
+                    <input
+                        type="number"
+                        name="owner_expense_price[]"
+                        placeholder="Amount"
+                    >
+                </div>
+
+                <div class="d-flex justify-between mt-30 mb-20 action-buttons">
 
                 <button
                     type="button"
@@ -297,9 +534,8 @@ $expenses = $wpdb->get_results(
                 </button>
 
             </div>
-
-        </form>
-
+            
+            </form>
+            </div>
     </section>
-
 </div>

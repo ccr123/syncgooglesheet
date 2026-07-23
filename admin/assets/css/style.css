@@ -130,3 +130,20 @@
 .gssync-toolbar-right input{
     width:100%;
 }
+.gssync-favourite-toggle{
+    cursor:pointer;
+    font-size:22px;
+    color:#cfcfcf;
+    transition:.2s;
+    user-select:none;
+}
+.gssync-favourite-toggle{
+    filter: grayscale(100%);
+}
+.gssync-favourite-toggle.active{
+    filter:grayscale(0%);
+}
+.gssync-inline-form{
+    display: flex;
+    gap: 10px;
+}

@@ -1,0 +1,74 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "30f84f997e6c429f9f6d5a592f87e026",
+    "packages": [
+        {
+            "name": "rohanadhikari/nepali-date",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rohanAdhikari1/NepalIDatePHP.git",
+                "reference": "849968cfb0975a47705f7100313fd50d65e65615"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rohanAdhikari1/NepalIDatePHP/zipball/849968cfb0975a47705f7100313fd50d65e65615",
+                "reference": "849968cfb0975a47705f7100313fd50d65e65615",
+                "shasum": ""
+            },
+            "require-dev": {
+                "laravel/pint": "^1.25",
+                "pestphp/pest": "^3.8",
+                "phpstan/phpstan": "^2.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RohanAdhikari\\NepaliDate\\Laravel\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RohanAdhikari\\NepaliDate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rohan Adhikari",
+                    "email": "official@rohanadhikari.com.np"
+                }
+            ],
+            "description": "A PHP package for handling Nepali Date and Time (Bikram Sambat - BS).",
+            "support": {
+                "issues": "https://github.com/rohanAdhikari1/NepalIDatePHP/issues",
+                "source": "https://github.com/rohanAdhikari1/NepalIDatePHP/tree/v1.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/rohanadhikari1",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-07-16T00:19:17+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}

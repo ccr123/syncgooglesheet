@@ -1,0 +1,46 @@
+{
+    "name": "rohanadhikari/nepali-date",
+    "description": "A PHP package for handling Nepali Date and Time (Bikram Sambat - BS).",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "RohanAdhikari\\NepaliDate\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RohanAdhikari\\NepaliDate\\Laravel\\ServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Rohan Adhikari",
+            "email": "official@rohanadhikari.com.np"
+        }
+    ],
+    "scripts": {
+        "analyse":"vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint",
+        "test" : "vendor/bin/pest --colors=always",
+        "time:check": "php check/ConvertPerformanceMeasure.php"
+    },
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "laravel/pint": "^1.25",
+        "pestphp/pest": "^3.8"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

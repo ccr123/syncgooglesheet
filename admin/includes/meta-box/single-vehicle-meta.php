@@ -87,3 +87,50 @@ function gssync_generate_expenses_ajax()
         ob_get_clean()
     );
 }
+
+add_action(
+    'wp_ajax_gssync_toggle_favourite',
+    'gssync_toggle_favourite'
+);
+
+function gssync_toggle_favourite()
+{
+    global $wpdb;
+
+    $expense_id = absint(
+        $_POST['expense_id'] ?? 0
+    );
+
+    $table = $wpdb->prefix . 'gssync_expenses';
+
+    $current = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT is_favorite
+            FROM {$table}
+            WHERE id = %d",
+            $expense_id
+        )
+    );
+
+    if ($current === null) {
+
+        wp_send_json_error();
+
+    }
+
+    $new_value = $current ? 0 : 1;
+
+    $wpdb->update(
+        $table,
+        [
+            'is_favorite' => $new_value
+        ],
+        [
+            'id' => $expense_id
+        ]
+    );
+
+    wp_send_json_success([
+        'is_favorite' => $new_value
+    ]);
+}

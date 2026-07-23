@@ -1,0 +1,45 @@
+<?php
+
+namespace RohanAdhikari\NepaliDate\Laravel\Casts;
+
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Database\Eloquent\Model;
+use RohanAdhikari\NepaliDate\NepaliDate;
+
+class AsNepaliDateTime implements CastsAttributes
+{
+    protected $format;
+
+    public function __construct($format = 'c')
+    {
+        $this->format = $format;
+    }
+
+    /**
+     * Cast the given value.
+     *
+     * @param  array<string, mixed>  $attributes
+     */
+    public function get(Model $model, string $key, mixed $value, array $attributes): mixed
+    {
+        if (blank($value)) {
+            return null;
+        }
+
+        return NepaliDate::createFromFormat($this->format, $value);
+    }
+
+    /**
+     * Prepare the given value for storage.
+     *
+     * @param  array<string, mixed>  $attributes
+     */
+    public function set(Model $model, string $key, mixed $value, array $attributes): mixed
+    {
+        if (blank($value)) {
+            return null;
+        }
+
+        return NepaliDate::parse($value)->locale(NepaliDate::ENGLISH)->format($this->format);
+    }
+}

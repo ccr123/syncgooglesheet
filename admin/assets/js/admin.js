@@ -218,3 +218,41 @@ jQuery(function ($) {
     );
 
 });
+
+
+jQuery(function ($) {
+
+    $(document).on(
+        'click',
+        '.gssync-favourite-toggle',
+        function () {
+            console.log($(this));
+            let $star = $(this);
+
+            $.ajax({
+
+                url: gssync_ajax.ajax_url,
+
+                type: 'POST',
+
+                data: {
+                    action: 'gssync_toggle_favourite',
+                    expense_id: $star.data('expense-id')
+                },
+
+                success: function (response) {
+
+                    if (response.success) {
+
+                        $star.toggleClass('active');
+
+                    }
+
+                }
+
+            });
+
+        }
+    );
+
+});

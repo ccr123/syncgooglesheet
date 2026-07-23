@@ -130,4 +130,20 @@ function gssync_frontend_assets()
         '2.3.4',
         true
     );
+
+    wp_enqueue_script(
+        'gssync-nepali-date',
+        GSSYNC_PLUGIN_URL . 'frontend/assets/js/nepali-date-converter.js',
+        ['jquery'],
+        GSSYNC_VERSION,
+        true
+    );
+
+    wp_enqueue_script(
+        'gssync-update-entry',
+        GSSYNC_PLUGIN_URL . 'frontend/assets/js/update-entry.js',
+        ['jquery'],
+        GSSYNC_VERSION,
+        true
+    );
 }

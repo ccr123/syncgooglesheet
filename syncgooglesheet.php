@@ -34,7 +34,6 @@ function gssync_activate()
 
     gssync_register_vehicle_post_type();
     gssync_create_tables();
-
     gssync_create_pages();
     // gssync_create_login_page();
 
@@ -49,6 +48,7 @@ register_activation_hook(__FILE__, 'gssync_activate');
 function gssync_deactivate()
 {
     flush_rewrite_rules();
+    wp_clear_scheduled_hook('gssync_nepali_date_sync');
 }
 register_deactivation_hook(__FILE__, 'gssync_deactivate');
 
@@ -71,3 +71,4 @@ require_once GSSYNC_PLUGIN_DIR . 'admin/includes/sync-expenses.php';
 */
 
 require_once GSSYNC_PLUGIN_DIR . 'frontend/frontend.php';
+require_once GSSYNC_PLUGIN_DIR . 'frontend/includes/class-nepali-date.php';

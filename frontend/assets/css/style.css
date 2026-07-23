@@ -108,9 +108,10 @@ body:not(.page-edrive-login) .edrive-header{
     font-size: 16px;
     font-family: Yusei Magic;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 6px;
     width: 100%;
     max-width: 200px;
+    letter-spacing: 1px;
 }
 .gssync-form-row label,.gssync-expense-wrapper label{
     font-size: 16px;
@@ -139,6 +140,91 @@ body:not(.page-edrive-login) .edrive-header{
     display: block;
     margin-top: 10px;
 }
+
+.gssync-favourite-toggle:hover{
+    transform:scale(1.15);
+}
+.justify-right{justify-content: right;}
+.bs-active span.ad-value {
+    display:none;
+}
+
+.ad-value{
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.bs-value{
+    display:none;
+}
+
+.bs-active .ad-value{
+    display:none;
+}
+
+.bs-active .bs-value{
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.update-entry-filters{
+    position: relative;
+}
+.update-entry-filters .gssync-calendar-switch{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 100px;
+    height: 35px;
+    display: flex;
+    gap: 0;
+}
+.update-entry-filters .gssync-calendar-switch button{
+    width: 100%;
+    border: unset;
+    color: #1F2A44;
+    font-family: Yusei Magic;
+    font-size: 16px;
+    background-color: #1f2a443d;
+    font-weight: 900;
+}
+.update-entry-filters .gssync-calendar-switch button.active{
+    background-color: #1F2A44;
+    color: #ffffff;
+}
+.gssync-card form .gssync-expense-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.gssync-card form .gssync-expense-wrapper  input[type="number"],.gssync-card form .gssync-expense-row input[type="number"]{
+    max-width: 100px;
+    font-family: Inter;
+}
+.add-expense-class{
+    font-family: Yusei Magic;
+    border:2px solid #EF6526;  
+    background-color: unset;
+    color: #1F2A44;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 0 10px;
+    opacity: 0.8;
+    transition: all 0.4s ease;
+    border-radius: 4px;
+}
+.add-expense-class:hover{
+    opacity: 1;
+    background-color: #EF6526;
+    color: #ffffff;
+}
 @media screen and (max-width:768px) {
     .edrive-side-nav{
         display: none;
@@ -154,13 +240,42 @@ body:not(.page-edrive-login) .edrive-header{
         max-width: 100%;
     }
     .gssync-year-field{
-        max-width: 200px;
+        max-width: 150px;
         width: 100%;
+    }
+    .update-entry-filters div.date input{
+        font-size: 18px;
     }
     body .edrive-header{
-        width: 100%;
+        width: 100% !important;
+        margin: 10px !important;
     }
     body .edrive-container{
-        margin-right: 0;
+        margin-right: unset !important;
     }
+    .gssync-form-row label, .gssync-expense-wrapper label{
+        display: none;
+    }
+    .gssync-form-row button, .gssync-add-expense{
+        font-size: 12px;
+        font-family: Inter;
+        font-weight: 600;
+    }
+    .update-entry-filters .gssync-calendar-switch{
+        top: -5px;
+    }
+    .update-entry-filters .date{
+        width: fit-content;
+        margin-left: 25px;
+    }
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
 }

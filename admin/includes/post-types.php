@@ -251,9 +251,11 @@ function gssync_admin_scripts($hook)
 
     if (
         isset($post->post_type) &&
-        $post->post_type === 'gssync_vehicle'
-    ) {
+        $post->post_type === 'gssync_vehicle'||
 
+        isset($_GET['page']) &&
+    $_GET['page'] === 'gssync-expenses'
+    ) {
         wp_enqueue_script(
             'gssync-admin',
             GSSYNC_PLUGIN_URL . '/admin/assets/js/admin.js',

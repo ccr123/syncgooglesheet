@@ -16,13 +16,14 @@ $table_name = $wpdb->prefix . 'gssync_expenses';
 */
 if (
     isset($_POST['gssync_add_expense']) &&
-    !empty($_POST['expense_name'])
+    !empty($_POST['expense_name']) && !empty($_POST['expense_tags'])
 ) {
 
     $wpdb->insert(
         $table_name,
         [
             'expense_name' => sanitize_text_field($_POST['expense_name']),
+            'expense_tags' => sanitize_text_field($_POST['expense_tags'])
         ]
     );
 
@@ -36,6 +37,7 @@ if (
 */
 if (
     isset($_POST['gssync_update_expense']) &&
+    isset($_POST['expense_tags']) &&
     !empty($_POST['expense_id'])
 ) {
 
@@ -43,6 +45,7 @@ if (
         $table_name,
         [
             'expense_name' => sanitize_text_field($_POST['expense_name']),
+            'expense_tags' => sanitize_text_field($_POST['expense_tags'])
         ],
         [
             'id' => absint($_POST['expense_id']),
@@ -157,33 +160,52 @@ if (!empty($search)) {
                     required
                 >
 
-                <?php if ($edit_expense) : ?>
+                <select name="expense_tags" required>
 
-                    <input
-                        type="submit"
-                        name="gssync_update_expense"
-                        class="button button-primary"
-                        value="Update Expense"
-                    >
+                    <option value="Primary"
+                        <?php selected($edit_expense->expense_tags ?? '', 'Primary'); ?>>
+                        Primary
+                    </option>
 
-                    <a
-                        href="<?php echo admin_url('edit.php?post_type=gssync_vehicle&page=gssync-expenses'); ?>"
-                        class="button"
-                    >
-                        Cancel
-                    </a>
+                    <option value="Driver"
+                        <?php selected($edit_expense->expense_tags ?? '', 'Driver'); ?>>
+                        Driver
+                    </option>
 
-                <?php else : ?>
+                    <option value="Owner"
+                        <?php selected($edit_expense->expense_tags ?? '', 'Owner'); ?>>
+                        Owner
+                    </option>
 
-                    <input
-                        type="submit"
-                        name="gssync_add_expense"
-                        class="button button-primary"
-                        value="Add Expense"
-                    >
+                </select>
+                <div>
+                    <?php if ($edit_expense) : ?>
 
-                <?php endif; ?>
+                        <input
+                            type="submit"
+                            name="gssync_update_expense"
+                            class="button button-primary"
+                            value="Update Expense"
+                        >
 
+                        <a
+                            href="<?php echo admin_url('edit.php?post_type=gssync_vehicle&page=gssync-expenses'); ?>"
+                            class="button"
+                        >
+                            Cancel
+                        </a>
+
+                    <?php else : ?>
+
+                        <input
+                            type="submit"
+                            name="gssync_add_expense"
+                            class="button button-primary"
+                            value="Add Expense"
+                        >
+
+                    <?php endif; ?>
+                </div>
             </form>
 
         </div>
@@ -254,6 +276,8 @@ if (!empty($search)) {
                 <tr>
                     <th width="80">ID</th>
                     <th>Expense Type</th>
+                    <th width="150">Tags</th>
+                    <th width="100">Favourite</th>
                     <th width="180">Actions</th>
                 </tr>
             </thead>
@@ -276,15 +300,61 @@ if (!empty($search)) {
 
                             <td>
 
+                                <?php
+
+                                $tags = !empty($expense->expense_tags)
+                                    ? explode(',', $expense->expense_tags)
+                                    : [];
+
+                                ?>
+
+                                <?php foreach ($tags as $tag) : ?>
+
+                                    <span
+                                        class="gssync-tag"
+                                        style="
+                                            display:inline-block;
+                                            padding:3px 8px;
+                                            margin:2px;
+                                            background:#f1f1f1;
+                                            border-radius:20px;
+                                            font-size:12px;
+                                        "
+                                    >
+                                        <?php echo esc_html(trim($tag)); ?>
+                                    </span>
+
+                                <?php endforeach; ?>
+
+                            </td>
+
+                            
+                            <td>
+
+                                <span
+                                    class="gssync-favourite-toggle <?php echo $expense->is_favorite ? 'active' : ''; ?>"
+                                    data-expense-id="<?php echo esc_attr($expense->id); ?>"
+                                >
+                                    ⭐
+                                </span>
+
+                            </td>
+
+                            <td>
+
                                 <a
-                                    href="<?php echo admin_url('edit.php?post_type=gssync_vehicle&page=gssync-expenses&edit_expense=' . $expense->id); ?>"
+                                    href="<?php echo admin_url(
+                                        'edit.php?post_type=gssync_vehicle&page=gssync-expenses&edit_expense=' . $expense->id
+                                    ); ?>"
                                     class="button button-small"
                                 >
                                     Edit
                                 </a>
 
                                 <a
-                                    href="<?php echo admin_url('edit.php?post_type=gssync_vehicle&page=gssync-expenses&delete_expense=' . $expense->id); ?>"
+                                    href="<?php echo admin_url(
+                                        'edit.php?post_type=gssync_vehicle&page=gssync-expenses&delete_expense=' . $expense->id
+                                    ); ?>"
                                     class="button button-small"
                                     onclick="return confirm('Delete this expense type?');"
                                 >
@@ -300,7 +370,7 @@ if (!empty($search)) {
                 <?php else : ?>
 
                     <tr>
-                        <td colspan="3">
+                        <td colspan="5">
                             No expense types found.
                         </td>
                     </tr>

@@ -27,47 +27,81 @@ jQuery(function ($) {
 });
 jQuery(function ($) {
 
-    const months = [
-        'January','February','March','April',
-        'May','June','July','August',
-        'September','October','November','December'
-    ];
+    function getCurrentState() {
 
-    let month = new Date().getMonth();
-    let year = new Date().getFullYear();
+        const $input = $('.gssync-year-field');
+        const isBs = $('.update-entry-filters').hasClass('bs-active');
+
+        return {
+            year: parseInt(
+                isBs ? $input.data('year-bs') : $input.data('year-ad')
+            ),
+            month: parseInt(
+                isBs ? $input.data('month-bs') : $input.data('month-ad')
+            )
+        };
+    }
+
+    function updateField(year, month) {
+
+        const isBs = $('.update-entry-filters').hasClass('bs-active');
+        const $input = $('.gssync-year-field');
+
+        if (isBs) {
+
+            $input
+                .data('year-bs', year)
+                .data('month-bs', month)
+                .attr('data-year-bs', year)
+                .attr('data-month-bs', month);
+
+            $input.val(month + ' ' + year);
+
+        } else {
+
+            const months = [
+                'January','February','March','April',
+                'May','June','July','August',
+                'September','October','November','December'
+            ];
+
+            $input
+                .data('year-ad', year)
+                .data('month-ad', month)
+                .attr('data-year-ad', year)
+                .attr('data-month-ad', month);
+
+            $input.val(months[month - 1] + ' ' + year);
+
+        }
+    }
 
     $('.year-left').on('click', function () {
 
+        let { year, month } = getCurrentState();
+
         month--;
 
-        if (month < 0) {
-            month = 11;
+        if (month < 1) {
+            month = 12;
             year--;
         }
 
-        let currentDate = months[month] + ' ' + year;
-
-        console.log(currentDate);
-
-        $('.gssync-year-field').val(currentDate);
-
+        updateField(year, month);
     });
 
     $('.year-right').on('click', function () {
 
+        let { year, month } = getCurrentState();
+
         month++;
 
-        if (month > 11) {
-            month = 0;
+        if (month > 12) {
+            month = 1;
             year++;
         }
 
-        let currentDate = months[month] + ' ' + year;
-
-        console.log(currentDate);
- $('.gssync-year-field').val('may');
-        $('.gssync-year-field').val(currentDate);
-
+        updateField(year, month);
     });
 
 });
@@ -90,10 +124,10 @@ jQuery(function ($) {
             items: 5
         },
         768: {
-            items: 6
+            items: 8
         },
         1200: {
-            items: 7
+            items: 12
         }
     }
     });
